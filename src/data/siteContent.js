@@ -37,7 +37,14 @@ export const featuredBook = {
     {
       id: "amazon",
       name: "Amazon",
-      url: "https://www.amazon.com/s?k=Nejla+Nassiri+Tara",
+      url: "https://www.amazon.com/dp/1514434458?lv=shuf&channelId=500&plpRedirect=mhFallback",
+      icon: "shoppingBag",
+      style: "solid",
+    },
+    {
+      id: "barnesNoble",
+      name: "Barnes & Noble",
+      url: "https://www.barnesandnoble.com/w/tara-nejla-nassiri/1123230866",
       icon: "shoppingBag",
       style: "solid",
     },

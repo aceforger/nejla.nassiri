@@ -172,58 +172,88 @@ export default function BookShowcase() {
         </div>
       </div>
 
-      {/* Purchase Modal */}
+      {/* ===== PURCHASE MODAL ===== */}
       <AnimatePresence>
         {showModal && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-brown/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-brown/85 backdrop-blur-md"
             onClick={() => setShowModal(false)}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-dark-brown max-w-md w-full rounded-lg border-2 border-gold/40 shadow-2xl p-8"
+              initial={{ scale: 0.9, opacity: 0, y: 30 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 30 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="bg-dark-brown max-w-lg w-full rounded-lg border-2 border-gold/40 shadow-2xl overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-2">
-                  <ShoppingBag size={18} className="text-gold" />
-                  <span className="text-xs uppercase tracking-wider text-gold font-bold">
-                    Purchase Tara
-                  </span>
-                </div>
+              {/* Header with book cover */}
+              <div className="relative bg-gradient-to-r from-burgundy/30 via-dark-brown to-burgundy/30 border-b border-gold/20 p-8">
                 <button
                   onClick={() => setShowModal(false)}
-                  className="text-cream/50 hover:text-gold transition-colors"
+                  className="absolute top-4 right-4 text-cream/50 hover:text-gold transition-colors z-10"
+                  aria-label="Close"
                 >
                   <X size={22} />
                 </button>
+
+                <div className="flex items-center gap-6">
+                  {/* Book cover thumbnail - bigger */}
+                  <div className="w-28 h-42 md:w-32 md:h-48 rounded-sm overflow-hidden border-2 border-gold/40 flex-shrink-0 shadow-2xl">
+                    <img
+                      src={book.coverFront}
+                      alt={book.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <ShoppingBag size={14} className="text-gold" />
+                      <span className="text-[10px] uppercase tracking-[0.3em] text-gold font-bold">
+                        Purchase
+                      </span>
+                    </div>
+                    <h3 className="font-serif text-3xl md:text-4xl font-bold text-ivory">
+                      {book.title}
+                    </h3>
+                    <p className="text-cream/60 text-sm italic mt-2">
+                      by Nejla Nassiri
+                    </p>
+                    <p className="text-cream/40 text-xs mt-1">
+                      A story of hope, secrets, and the courage to fight for
+                      life.
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              <p className="text-cream/70 text-sm mb-6 italic">
-                Available in print and digital editions worldwide.
-              </p>
+              {/* Body - just links */}
+              <div className="p-8 space-y-4">
+                <p className="text-cream/60 text-xs uppercase tracking-[0.2em] font-bold mb-4">
+                  Available At
+                </p>
 
-              <div className="space-y-3">
                 {book.purchaseLinks.map((link) => (
                   <motion.a
                     key={link.id}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.02, x: 4 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex items-center justify-between w-full bg-burgundy hover:bg-copper text-ivory px-6 py-4 transition-all"
+                    className="flex items-center justify-between w-full bg-burgundy hover:bg-copper text-ivory px-6 py-5 transition-all group"
                   >
                     <div className="flex items-center gap-3">
-                      <ShoppingBag size={16} />
-                      <span className="font-bold text-sm">{link.name}</span>
+                      <ShoppingBag size={18} />
+                      <span className="font-bold text-base">{link.name}</span>
                     </div>
-                    <ExternalLink size={14} />
+                    <ExternalLink
+                      size={16}
+                      className="group-hover:translate-x-1 transition-transform"
+                    />
                   </motion.a>
                 ))}
               </div>
